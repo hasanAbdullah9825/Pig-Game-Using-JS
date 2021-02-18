@@ -31,14 +31,36 @@ const inIt = function () {
 
     diceEl.classList.add('hidden');
 
+    player0El.classList.add('player--active');
+    player1El.classList.remove('player--active');
+
 
 
 }
 
 inIt();
 
+const switchPlayer=function(){
+    currentScore=0;
+    document.getElementById(`current--${activePlayer}`).textContent=0;
+
+   activePlayer=activePlayer===0 ? 1 : 0;
+   player0El.classList.toggle('player--active');
+    player1El.classList.toggle('player--active');
+
+}
+
 const rollingDice = function () {
     const dice = Math.trunc(Math.random() * 6) + 1;
+  if(dice!=1){
+    currentScore+=dice;
+    document.getElementById(`current--${activePlayer}`).textContent=currentScore;
+  }
+
+  else{
+      switchPlayer();
+      
+  }
     return dice;
 }
 
