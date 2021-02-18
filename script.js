@@ -19,6 +19,7 @@ let scores, currentScore, activePlayer, playing;
 
 
 
+
 const inIt = function () {
 
     scores = [0, 0];
@@ -40,33 +41,43 @@ const inIt = function () {
 
 inIt();
 
-const switchPlayer=function(){
-    currentScore=0;
-    document.getElementById(`current--${activePlayer}`).textContent=0;
+const switchPlayer = function () {
+    currentScore = 0;
+    document.getElementById(`current--${activePlayer}`).textContent = currentScore;
 
-   activePlayer=activePlayer===0 ? 1 : 0;
-   player0El.classList.toggle('player--active');
+    activePlayer = activePlayer === 0 ? 1 : 0;
+    player0El.classList.toggle('player--active');
     player1El.classList.toggle('player--active');
 
 }
 
 const rollingDice = function () {
     const dice = Math.trunc(Math.random() * 6) + 1;
-  if(dice!=1){
-    currentScore+=dice;
-    document.getElementById(`current--${activePlayer}`).textContent=currentScore;
-  }
+    if (dice != 1) {
+        currentScore += dice;
+        document.getElementById(`current--${activePlayer}`).textContent = currentScore;
+    }
 
-  else{
-      switchPlayer();
-      
-  }
+    else {
+        switchPlayer();
+
+    }
     return dice;
 }
 
-rollEl.addEventListener('click',function(){
+rollEl.addEventListener('click', function () {
 
-     diceEl.src=`dice-${rollingDice()}.png`;
-  
+    diceEl.src = `dice-${rollingDice()}.png`;
+
     diceEl.classList.remove('hidden');
+})
+
+holdEl.addEventListener('click', function () {
+
+     scores[activePlayer] += currentScore;
+     document.getElementById(`score--${activePlayer}`).textContent =
+     scores[activePlayer];
+     switchPlayer();
+
+    
 })
