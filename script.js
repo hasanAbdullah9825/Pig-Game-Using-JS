@@ -25,7 +25,7 @@ const inIt = function () {
     scores = [0, 0];
     currentScore = 0;
     activePlayer = 0;
-    playing = false;
+    playing = true;
 
     score0El.textContent = 0;
     score1El.textContent = 0;
@@ -74,10 +74,31 @@ rollEl.addEventListener('click', function () {
 
 holdEl.addEventListener('click', function () {
 
-     scores[activePlayer] += currentScore;
-     document.getElementById(`score--${activePlayer}`).textContent =
-     scores[activePlayer];
-     switchPlayer();
+     if(playing){
+
+    
+        scores[activePlayer] += currentScore;
+        document.getElementById(`score--${activePlayer}`).textContent =
+        scores[activePlayer];
+       
+
+        if(scores[activePlayer]>=100){
+
+            playing=false;
+            rollEl.classList.add('hidden');
+
+            document.querySelector(`.player--${activePlayer}`)
+            .classList.add('player--winner');
+
+            document.querySelector(`.player--${activePlayer}`)
+        .classList.remove('player--active');
+        }
+        else
+        {
+            switchPlayer();
+        }
+    
+     }
 
     
 })
